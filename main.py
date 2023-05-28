@@ -1,6 +1,9 @@
 import json
 import os
 import base64
+import matplotlib.pyplot as plt
+
+
 from requests import post
 from dotenv import load_dotenv
 import spotipy
@@ -57,17 +60,28 @@ for track in sp.playlist_items(playlist_URI)["items"]:
     pop_track.append(track_pop)
 
 data = {
-    "track uri": track_uris,
     "track name": tracks_name,
-    "artist uri": art_uri,
-    "artist info": art_info,
     "artist name": art_name,
     "popularity": art_pop,
     "genre": art_genre,
     "album name": alb,
-    "popularity track": track_pop
+
 }
-
+plt.close("all")
 df = pd.DataFrame(data=data)
+df1 = df[df["genre"].str.len()>0]
+genres={}
+for x in df1["genre"]:
+    for j in x:
+        if j in genres.keys():
+            genres[j] = genres[j]+1
+        else:
+            genres[j] = 1
 
-print(df[["artist name", "genre"]])
+genres1 = list(genres.keys())
+numbers = genres.values()
+
+
+plt.bar(range(len(genres)),numbers,tick_label=genres1)
+plt.xticks(rotation='vertical')
+plt.show()
