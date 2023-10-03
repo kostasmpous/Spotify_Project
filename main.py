@@ -10,8 +10,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pandas as pd
 
-client_key = '8ad48719173f42fd89a84c3b22b2f897'
-client_secret = '53c733a1087348b4a6d57f5fcdf4db4f'
+
 load_dotenv()
 
 # Authentication - without user
